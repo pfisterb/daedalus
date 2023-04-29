@@ -1,0 +1,25 @@
+{{- if .Values.ysb.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: generator
+  template:
+    metadata:
+      labels:
+        app: generator
+    spec:
+      containers:
+      - name: ysb-generator
+        image: pfisterb/ysb-generator:1.0
+        imagePullPolicy: Always
+        command: ["java"]
+        # args: ["-jar", "producer-1.0-SNAPSHOT.jar", "advertising_6h_550K_max.csv", "600000"]
+        args: ["-jar", "producer-1.0-SNAPSHOT.jar", "advertising_6h_400K_max.csv", "600000"]
+        # args: ["-jar", "producer-1.0-SNAPSHOT.jar", "sine_100000_max_3h.csv", "150000"]
+        # args: ["-jar", "producer-1.0-SNAPSHOT.jar", "cos_200000_max_3h.csv", "250000"]
+{{- end }}

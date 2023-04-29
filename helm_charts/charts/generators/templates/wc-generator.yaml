@@ -1,0 +1,25 @@
+{{- if .Values.wc.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: generator
+  template:
+    metadata:
+      labels:
+        app: generator
+    spec:
+      containers:
+      - name: wc-generator
+        image: pfisterb/wc-generator:1.0
+        imagePullPolicy: Always
+        command: ["java"]
+        # flink
+        args: ["-jar", "producer-1.0-SNAPSHOT.jar", "sine_40000_6h.csv", "50000"]
+        # kakfa
+        #args: ["-jar", "producer-1.0-SNAPSHOT.jar", "sine_150000_6h.csv", "160000"]
+{{- end }}

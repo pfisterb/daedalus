@@ -1,0 +1,10 @@
+FROM adoptopenjdk/openjdk11
+
+COPY kafka-streams/word_count/processor/target/processor-1.0-SNAPSHOT.jar /opt/processor-1.0-SNAPSHOT.jar
+
+# enable prometheus monitoring
+COPY docker/jmx_prometheus_javaagent-0.18.0.jar /opt/jmx_prometheus_javaagent-0.18.0.jar
+COPY docker/kstreams-config.yaml /opt/config.yaml
+
+WORKDIR /opt
+CMD ["java", "-javaagent:./jmx_prometheus_javaagent-0.18.0.jar=9999:config.yaml", "-jar", "processor-1.0-SNAPSHOT.jar"]

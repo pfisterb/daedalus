@@ -1,0 +1,9 @@
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+whitelistObjectNames:
+  # relevant metrics
+  - kafka.streams:*
+  - kafka.consumer:*
+  - java.lang:type=OperatingSystem
+rules:
+- pattern: ".*"

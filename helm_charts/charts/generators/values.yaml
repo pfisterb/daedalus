@@ -1,0 +1,11 @@
+# Yahoo Streaming Benchmark
+ysb:
+  enabled: false
+  
+# Traffic Monitoring
+tm:
+  enabled: false
+
+# WordCount
+wc:
+  enabled: false

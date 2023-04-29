@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ .Values.name }}-metrics
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  podMetricsEndpoints:
+  - port: metrics
+    path: /
+    interval: {{ .Values.scrapeInterval }}

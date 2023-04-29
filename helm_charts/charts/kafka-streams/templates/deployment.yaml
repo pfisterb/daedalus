@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - name: kafka-streams
+        image: {{ .Values.image }}
+        imagePullPolicy: Always
+        command: ["java"]
+        args: ["-javaagent:./jmx_prometheus_javaagent-0.18.0.jar=9999:config.yaml", "-jar", "processor-1.0-SNAPSHOT.jar", {{ .Values.name }}]
+        resources:
+          requests:
+            cpu: "1000m"
+          limits:
+            cpu: "1000m"
+        ports:
+        - containerPort: 9999
+          name: metrics

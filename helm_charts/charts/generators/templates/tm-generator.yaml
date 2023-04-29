@@ -1,0 +1,20 @@
+{{- if .Values.tm.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: generator
+  template:
+    metadata:
+      labels:
+        app: generator
+    spec:
+      containers:
+      - name: tm-generator
+        image: pfisterb/tm-generator:1.0
+        imagePullPolicy: Always
+{{- end }}

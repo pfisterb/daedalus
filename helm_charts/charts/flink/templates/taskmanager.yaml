@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}-taskmanager
+spec:
+  replicas: {{ .Values.taskmanager.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+      component: taskmanager
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+        component: taskmanager
+    spec:
+      containers:
+      - name: taskmanager
+        image: {{ .Values.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        resources:
+          requests:
+            #memory: "64Mi"
+            cpu: "250m"
+          limits:
+            #memory: "128Mi"
+            cpu: "500m"
+        env:
+        args: ["taskmanager"]
+        ports:
+        - containerPort: 6122
+          name: rpc
+        - containerPort: 6125
+          name: query-state
+        - containerPort: 9999
+          name: metrics
+        livenessProbe:
+          tcpSocket:
+            port: 6122
+          initialDelaySeconds: 30
+          periodSeconds: 60
+        volumeMounts:
+        - name: {{ .Values.name }}-config-volume
+          mountPath: /opt/flink/conf/
+        securityContext:
+          runAsUser: 9999  # refers to user _flink_ from official flink image, change if necessary
+      volumes:
+      - name: {{ .Values.name }}-config-volume
+        configMap:
+          name: {{ .Values.name }}-config
+          items:
+          - key: flink-conf.yaml
+            path: flink-conf.yaml
+          - key: log4j-console.properties
+            path: log4j-console.properties

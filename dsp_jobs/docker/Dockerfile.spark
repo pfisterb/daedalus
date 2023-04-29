@@ -1,0 +1,9 @@
+FROM bitnami/spark:3.3.2
+# USER 1001
+COPY spark/word_count/processor/target/processor-1.0-SNAPSHOT.jar /opt/bitnami/spark/word_count-1.0-SNAPSHOT.jar
+
+# # overwrite metrics.properties
+# RUN cat /opt/bitnami/spark/conf/spark-defaults.conf.template
+# # RUN rm /opt/bitnami/spark/conf/metrics.properties
+# COPY docker/metrics.properties /opt/bitnami/spark/conf/metrics.properties
+# RUN ls /opt/bitnami/spark/conf/

@@ -1,0 +1,118 @@
+# Declare variables to be passed into your templates.
+# Variables will overwrite values in each subchart's values.yaml
+
+#######################################
+## Global variables for the flink native kubernetes chart
+flink:
+  ## boolean to enable/disable chart
+  enabled: false
+
+  ## The cluster-id is used for identifying a unique Flink cluster.
+  ## The id must only contain lowercase alphanumeric characters and "-".
+  clusterid: "flink"
+
+  ## configure the NodePort for external access
+  ## will be configured automatically if left empty
+  # nodePort: 30881
+
+
+#########################################
+## Global variables for the generators chart
+generators:
+  ## boolean to enable/disable chart
+  enabled: false
+
+
+#########################################
+## Global variables for the grafana chart
+grafana:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  service:
+    nodePorts:
+      grafana: 30080
+
+
+#########################################
+## Global variables for the kafka chart
+kafka:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  replicaCount: 3
+
+  ## configure NodePorts for external access
+  ## Length must be the same as replicaCount
+  # externalAccess:
+  #   service:
+  #     nodePorts:
+  #       - 32690
+  #       - 32691
+  #       - 32692
+  #     domain: "192.168.64.6"
+
+#########################################
+## Global variables for the kafka-streams chart
+kafka-streams:
+  ## boolean to enable/disable chart
+  enabled: false
+
+  ## configure cluster size
+  replicas: 1
+
+#########################################
+## Global variables for the kafdrop chart
+kafdrop:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  replicas: 1
+
+  ## configure NodePort for external access
+  #service:
+    #nodePort: 30693
+
+#########################################
+## Global variables for the kafdrop chart
+kube-prometheus:
+  ## boolean to enable/disable chart
+  enabled: true
+
+  ## configure cluster size
+  replicas: 1
+
+  ## configure NodePort for external access
+  # promethues:
+  #   service:
+  #     nodePorts:
+  #       http: "30900"
+
+############################################
+## Global variables for the prometheus chart
+prometheus:
+  ## boolean to enable/disable chart
+  enabled: false
+
+  ## configure cluster size
+  replicas: 1
+
+#######################################
+## Global variables for the redis chart
+redis:
+  enabled: true
+
+  ## configure the NodePort for external access
+  ## will be configured automatically if left empty
+  master:
+    service:
+      nodePorts:
+        redis: 31013
+
+#######################################
+## Global variables for the spark chart
+spark:
+  enabled: false

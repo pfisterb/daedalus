@@ -1,0 +1,10 @@
+
+FROM flink:1.16.0
+
+COPY traffic_monitoring/processor/target/processor-1.0-SNAPSHOT.jar /opt/flink/usrlib/traffic_monitoring-1.0-SNAPSHOT.jar
+COPY word_count/processor/target/processor-1.0-SNAPSHOT.jar /opt/flink/usrlib/word_count-1.0-SNAPSHOT.jar
+COPY yahoo_streaming_benchmark/processor/target/processor-1.0-SNAPSHOT.jar /opt/flink/usrlib/yahoo_streaming_benchmark-1.0-SNAPSHOT.jar
+# COPY docker/jobs-1.0.jar /opt/flink/usrlib/jobs-1.0.jar
+
+COPY docker/flink-shaded-hadoop-2-uber-2.8.3-10.0.jar /opt/flink/lib/flink-shaded-hadoop-2-uber-2.8.3-10.0.jar
+
